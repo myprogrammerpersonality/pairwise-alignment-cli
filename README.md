@@ -30,10 +30,10 @@ where seq1 and seq2 are the sequences to be aligned.
 
 ## Options
 The nw-align tool supports the following options:
--g: Specifies the gap penalty. The default value is -1.
--m: Specifies the match score. The default value is 1.
--d: Specifies the mismatch score. The default value is -1.
--o: Specifies the output file for the alignment. If not provided, the alignment will be printed to standard output.
+* -g: Specifies the gap penalty. The default value is -1.
+* -m: Specifies the match score. The default value is 1.
+* -d: Specifies the mismatch score. The default value is -1.
+* -o: Specifies the output file for the alignment. If not provided, the alignment will be printed to standard output.
 
 ## Example
 To align the sequences AAACCTTGG and ACACTGTGG using a gap penalty of -1, a match score of 1, and a mismatch score of -2, and save the alignment to a file called alignment.txt, use the following command:
