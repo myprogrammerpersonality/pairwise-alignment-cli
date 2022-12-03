@@ -1,6 +1,9 @@
 # vscode
 .vscode/*
 
+# output file
+*.txt
+
 # Prerequisites
 *.d
 
