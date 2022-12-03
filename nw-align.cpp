@@ -1,9 +1,11 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 using namespace std;
 
 string reverse(string s)
 {
+    // a function that reverses a string
     string sr;
     for (int i = s.length() - 1; i >= 0; i--)
     {
@@ -12,18 +14,39 @@ string reverse(string s)
     return sr;
 }
 
-int main()
+int main(int argc, char *argv[])
 {
-    string s1, s2;
-    cout << "Enter the first sequence: ";
-    cin >> s1;
-    cout << "Enter the second sequence: ";
-    cin >> s2;
+    // get the input from argv including two sequences and options (gap, mismatch, match). ./nw-align AAACCTTGG ACACTGTGG -g -1 -m 1 -d -2 -o alignment.txt
+    // default output is standard output if output file is not specified
+    string s1 = argv[1];
+    string s2 = argv[2];
     int n = s1.length();
     int m = s2.length();
-    int match=3;
-    int gap=-4;
-    int mismatch=-2;
+
+    int gap = -1;
+    int match = 1;
+    int mismatch = -1;
+    string output = "standard output";
+    for (int i = 3; i < argc; i++)
+    {
+        if (string(argv[i]) == "-g")
+        {
+            gap = stoi(argv[i + 1]);
+        }
+        else if (string(argv[i]) == "-m")
+        {
+            match = stoi(argv[i + 1]);
+        }
+        else if (string(argv[i]) == "-d")
+        {
+            mismatch = stoi(argv[i + 1]);
+        }
+        else if (string(argv[i]) == "-o")
+        {
+            output = argv[i + 1];
+        }
+    }
+
     int dp[n + 1][m + 1];
     int tb[n + 1][m + 1];
     for (int i = 0; i <= n; i++)
@@ -111,5 +134,18 @@ int main()
     cout << s3 << endl;
     cout << s4 << endl;
     cout << "The Alignment score is: " << dp[n][m] << endl;
+    
+    // if output file is specified, write the alignment to the file
+    if (output != "standard output")
+    {
+        ofstream outfile;
+        outfile.open(output);
+        outfile << "The Alignment:" << endl;
+        outfile << s3 << endl;
+        outfile << s4 << endl;
+        outfile << "The Alignment score is: " << dp[n][m] << endl;
+        outfile.close();
+    }
+    
     return 0;
 }
